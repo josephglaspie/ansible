@@ -52,6 +52,12 @@
   shell: pip install --user git+git://github.com/powerline/powerline
   become: true
 
+- name: load ssh-agent via zshrc
+  lineinfile:
+    dest: "~/.zshrc"
+    line: "eval \"$(ssh-agent -s)\""
+  when: ansible_system == "Darwin"
+
 - name: reload zshrc
   shell: "source ~/.zshrc"
   args:
